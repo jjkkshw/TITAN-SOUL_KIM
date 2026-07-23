@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour
 {
     private const float DefaultSpeed = 5f;
+    private static readonly Vector2 DefaultIdleDirection = Vector2.left;
 
     private static readonly int MoveXHash = Animator.StringToHash("MoveX");
     private static readonly int MoveYHash = Animator.StringToHash("MoveY");
@@ -23,8 +24,7 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
 
         // 시작할 때 왼쪽 Idle이 선택되도록 기본 방향을 지정한다.
-        animator.SetFloat(LastMoveXHash, -1f);
-        animator.SetFloat(LastMoveYHash, 0f);
+        SetIdleDirection(DefaultIdleDirection);
     }
 
     private void Update()
@@ -57,5 +57,11 @@ public class PlayerMove : MonoBehaviour
             (keyboard.wKey.isPressed ? 1f : 0f) - (keyboard.sKey.isPressed ? 1f : 0f));
 
         return input.normalized;
+    }
+
+    private void SetIdleDirection(Vector2 direction)
+    {
+        animator.SetFloat(LastMoveXHash, direction.x);
+        animator.SetFloat(LastMoveYHash, direction.y);
     }
 }
