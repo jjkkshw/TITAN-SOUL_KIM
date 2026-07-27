@@ -121,7 +121,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -135,7 +135,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 35
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -197,78 +197,122 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Attack_Left_Up
+      name: Player_Attack_L
       rect:
         serializedVersion: 2
         x: 6
-        y: 145
-        width: 31
-        height: 36
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fe2cb9dd08e71df20800000000000000
-      internalID: 3445674281854026479
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Attack_Left_Up_Up
-      rect:
-        serializedVersion: 2
-        x: 43
-        y: 145
-        width: 27
-        height: 36
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8b58aa36a330f6350800000000000000
-      internalID: 6012027576878007736
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Attack_Up
-      rect:
-        serializedVersion: 2
-        x: 84
         y: 146
-        width: 22
-        height: 41
+        width: 30
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f348c70e4002dc4f0800000000000000
-      internalID: -806953552911236033
+      spriteID: de6e2f94a8f5a6341b1bb319de740ea9
+      internalID: 347702003
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Attack_Right_Up_Up
+      name: Player_Attack_LU
       rect:
         serializedVersion: 2
-        x: 118
-        y: 145
-        width: 27
+        x: 44
+        y: 146
+        width: 29
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 880ec439d98e44d45a4511dbcce7f14d
+      internalID: 1538736392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Attack_U
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 146
+        width: 20
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19b468ee99cb0a34b9838f0cb5197d2c
+      internalID: -371753992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Attack_RU
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 146
+        width: 29
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5180081258f775044ab888acbe098a5e
+      internalID: 842020299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Attack_R
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 146
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a71e12c5bbb55044ead79d5cf43c66c3
+      internalID: -425095984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Attack_LD
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 101
+        width: 29
         height: 36
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -276,21 +320,43 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f3714b1e1e64c4320800000000000000
-      internalID: 2543485825525749567
+      spriteID: e85f1b81cc3640746b85ea216730204f
+      internalID: -1978822590
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Attack_Right_Up
+      name: Player_Attack_D
       rect:
         serializedVersion: 2
-        x: 150
-        y: 145
-        width: 31
+        x: 80
+        y: 90
+        width: 20
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25254c53273109644b2acf2f3f079aff
+      internalID: 1434567855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Attack_RD
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 101
+        width: 29
         height: 36
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -298,318 +364,164 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7f49433f8a1063020800000000000000
-      internalID: 2321044483102512375
+      spriteID: adfe2c41ee8ea9d4eb55282837c00926
+      internalID: 1722867385
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Attack_Left_Down
+      name: Player_Attack_12
       rect:
         serializedVersion: 2
-        x: 5
-        y: 100
-        width: 31
-        height: 38
+        x: 215
+        y: 78
+        width: 20
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9beba1ab194b3e4b0800000000000000
-      internalID: -5412283789183631687
+      spriteID: e9e093d79d3cb124088e2d691becb5d8
+      internalID: 601520902
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Attack_Right_Down
+      name: Player_Attack_13
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 78
+        width: 20
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c91222c97240ed48955910af4e39f93
+      internalID: 2073871547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Arrow
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 51
+        width: 40
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b1342b094d5e4749b4ade1b48ef35c8
+      internalID: 959295913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Attack_19
       rect:
         serializedVersion: 2
         x: 152
-        y: 101
-        width: 31
-        height: 38
+        y: 45
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: eb959a776caf9ed10800000000000000
-      internalID: 2155529626991548862
+      spriteID: 83e0a4fa9f623f9498c1e5fef915cb10
+      internalID: 1525965515
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Attack_Left
+      name: Player_Attack_20
       rect:
         serializedVersion: 2
-        x: 214
-        y: 77
-        width: 22
-        height: 36
+        x: 170
+        y: 41
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f260b07adfdab5f00800000000000000
-      internalID: 1106669438390437423
+      spriteID: 991685044362bc24eb28a0af18e1549d
+      internalID: -249074010
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Attack_Righ
-      rect:
-        serializedVersion: 2
-        x: 250
-        y: 77
-        width: 22
-        height: 36
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e59a5ad2b5b853920800000000000000
-      internalID: 2969432753044826462
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrow_Right_Down
-      rect:
-        serializedVersion: 2
-        x: 4
-        y: 49
-        width: 40
-        height: 42
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1be5dd0549e7b2aa0800000000000000
-      internalID: -6184710487786299727
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrow_Right_Up
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 5
-        width: 40
-        height: 42
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0f82c8ef8a52ea260800000000000000
-      internalID: 7110662269419923696
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrow_Left
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 50
-        width: 42
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 64ce8f9b6407a2410800000000000000
-      internalID: 1453097278850526278
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrow_Left_Down
-      rect:
-        serializedVersion: 2
-        x: 101
-        y: 47
-        width: 40
-        height: 42
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f124fc0316642a5c0800000000000000
-      internalID: -4205721718765960673
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrow_Left_Up
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 4
-        width: 40
-        height: 42
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 91c1cba766a871a50800000000000000
-      internalID: 6491809560628304921
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrow_Impact_Pop_0
-      rect:
-        serializedVersion: 2
-        x: 151
-        y: 44
-        width: 14
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cdeb175ec101e5c40800000000000000
-      internalID: 5502853510987890396
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrow_Impact_Pop_1
-      rect:
-        serializedVersion: 2
-        x: 169
-        y: 40
-        width: 22
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 99c7290931cdc5f90800000000000000
-      internalID: -6963448947233620839
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrow_Right
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 7
-        width: 42
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e7d98daa912d33cc0800000000000000
-      internalID: -3732408658477671042
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrow_Impact_Pop_2
+      name: Player_Attack_21
       rect:
         serializedVersion: 2
         x: 200
-        y: 36
-        width: 31
-        height: 29
+        y: 35
+        width: 32
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dae06df3ea1f4904986ba34220b89313
-      internalID: 310667272
+      spriteID: 95bdf9fdb78cc3b429eb2c1b74eb3a1b
+      internalID: 1100910115
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Arrow_Impact_Pop_3
+      name: Player_Attack_22
       rect:
         serializedVersion: 2
-        x: 238
-        y: 32
-        width: 37
-        height: 35
+        x: 240
+        y: 33
+        width: 35
+        height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 913a0a7eb3100c34fa9c745b82ce684a
-      internalID: 1025810717
+      spriteID: 79e77d9f5fd059547a1d502cce01d05b
+      internalID: -1212183551
       vertices: []
       indices: 
       edges: []
@@ -626,39 +538,44 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Arrow: -2018312192845670000
-      Arrow_Impact_Long: 8433753385148959390
-      Arrow_Impact_Pop_0: 5502853510987890396
-      Arrow_Impact_Pop_1: -6963448947233620839
-      Arrow_Impact_Pop_2: 310667272
-      Arrow_Impact_Pop_3: 1025810717
-      Arrow_Left: 1453097278850526278
-      Arrow_Left_Down: -4205721718765960673
-      Arrow_Left_Up: 6491809560628304921
-      Arrow_Particle_0: -8712276343836874126
-      Arrow_Particle_1: -2264884662216874009
-      Arrow_Particle_2: 4409230393638390854
-      Arrow_Particle_3: 6293230929198117045
-      Arrow_Particle_4: -6839525773285296908
-      Arrow_Particle_5: -5453527640408097789
-      Arrow_Particle_6: -2055172010751545034
-      Arrow_Particle_7: 4725775020595928928
-      Arrow_Particle_8: -7105111573736639923
-      Arrow_Right: -3732408658477671042
-      Arrow_Right_Down: -6184710487786299727
-      Arrow_Right_Up: 7110662269419923696
-      Arrow_Tip: 5194544042444460738
-      Player_Attack_Left: 1106669438390437423
-      Player_Attack_Left_Down: -5412283789183631687
-      Player_Attack_Left_Up: 3445674281854026479
-      Player_Attack_Left_Up_Up: 6012027576878007736
-      Player_Attack_Righ: 2969432753044826462
-      Player_Attack_Right_Down: 2155529626991548862
-      Player_Attack_Right_Up: 2321044483102512375
-      Player_Attack_Right_Up_Up: 2543485825525749567
-      Player_Attack_Up: -806953552911236033
+      Arrow: 959295913
+      Player_Attack_10: 76787755
+      Player_Attack_12: 601520902
+      Player_Attack_13: 2073871547
+      Player_Attack_14: -232022204
+      Player_Attack_15: 2002517274
+      Player_Attack_17: -1998015483
+      Player_Attack_18: 468347035
+      Player_Attack_19: 1525965515
+      Player_Attack_2: -1483231358
+      Player_Attack_20: -249074010
+      Player_Attack_21: 1100910115
+      Player_Attack_22: -1212183551
+      Player_Attack_23: 1172349441
+      Player_Attack_24: 861615295
+      Player_Attack_25: 1386170265
+      Player_Attack_26: 635133154
+      Player_Attack_27: 204276596
+      Player_Attack_28: 2031642062
+      Player_Attack_29: 29565949
+      Player_Attack_30: 1585236195
+      Player_Attack_31: -136752478
+      Player_Attack_32: 1576350941
+      Player_Attack_33: -1448223914
+      Player_Attack_4: -419772411
+      Player_Attack_8: -984138647
+      Player_Attack_D: 1434567855
+      Player_Attack_L: 347702003
+      Player_Attack_LD: -1978822590
+      Player_Attack_LU: 1538736392
+      Player_Attack_R: -425095984
+      Player_Attack_RD: 1722867385
+      Player_Attack_RU: 842020299
+      Player_Attack_U: -371753992
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

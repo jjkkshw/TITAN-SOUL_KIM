@@ -16,12 +16,16 @@ public class PlayerMove : MonoBehaviour
 
     [Min(0f)]
     [SerializeField] private float speed = DefaultSpeed;
+    [Range(0f, 1f)]
+    [SerializeField] private float chargingSpeedMultiplier = 0.25f;
 
     private Animator animator;
+    private PlayerAttack playerAttack;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        playerAttack = GetComponent<PlayerAttack>();
 
         // 시작할 때 왼쪽 Idle이 선택되도록 기본 방향을 지정한다.
         SetIdleDirection(DefaultIdleDirection);
@@ -30,7 +34,11 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
         Vector2 moveInput = ReadMoveInput();
-        transform.position += (Vector3)(moveInput * speed * Time.deltaTime);
+        float currentSpeed = playerAttack != null && playerAttack.IsCharging
+            ? speed * chargingSpeedMultiplier
+            : speed;
+        transform.position +=
+            (Vector3)(moveInput * currentSpeed * Time.deltaTime);
 
         bool isMoving = moveInput.sqrMagnitude > 0f;
         animator.SetFloat(MoveXHash, moveInput.x);
