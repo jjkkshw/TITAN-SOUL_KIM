@@ -16,8 +16,6 @@ public class PlayerMove : MonoBehaviour
 
     [Min(0f)]
     [SerializeField] private float speed = DefaultSpeed;
-    [Range(0f, 1f)]
-    [SerializeField] private float chargingSpeedMultiplier = 0.25f;
 
     private Animator animator;
     private PlayerAttack playerAttack;
@@ -33,12 +31,10 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        Vector2 moveInput = ReadMoveInput();
-        float currentSpeed = playerAttack != null && playerAttack.IsCharging
-            ? speed * chargingSpeedMultiplier
-            : speed;
+        bool isAiming = playerAttack != null && playerAttack.IsCharging;
+        Vector2 moveInput = isAiming ? Vector2.zero : ReadMoveInput();
         transform.position +=
-            (Vector3)(moveInput * currentSpeed * Time.deltaTime);
+            (Vector3)(moveInput * speed * Time.deltaTime);
 
         bool isMoving = moveInput.sqrMagnitude > 0f;
         animator.SetFloat(MoveXHash, moveInput.x);
@@ -61,8 +57,10 @@ public class PlayerMove : MonoBehaviour
         }
 
         Vector2 input = new(
-            (keyboard.dKey.isPressed ? 1f : 0f) - (keyboard.aKey.isPressed ? 1f : 0f),
-            (keyboard.wKey.isPressed ? 1f : 0f) - (keyboard.sKey.isPressed ? 1f : 0f));
+            (keyboard.rightArrowKey.isPressed ? 1f : 0f) -
+            (keyboard.leftArrowKey.isPressed ? 1f : 0f),
+            (keyboard.upArrowKey.isPressed ? 1f : 0f) -
+            (keyboard.downArrowKey.isPressed ? 1f : 0f));
 
         return input.normalized;
     }

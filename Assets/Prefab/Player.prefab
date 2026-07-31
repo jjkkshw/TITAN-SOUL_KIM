@@ -107,7 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   speed: 5
-  chargingSpeedMultiplier: 0.25
 --- !u!95 &2696408671375875129
 Animator:
   serializedVersion: 7
