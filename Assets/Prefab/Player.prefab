@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7136018813366536424}
   - component: {fileID: 2696408671375875129}
   - component: {fileID: 3951039478117502561}
+  - component: {fileID: 3951039478117502562}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -104,7 +105,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c213d36a92834724598897466b0d7f12, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   speed: 5
 --- !u!95 &2696408671375875129
@@ -163,3 +164,15 @@ MonoBehaviour:
   attackLeftDown: {fileID: -1978822590, guid: 456ae456534735a47ba88ed56824b0df, type: 3}
   attackDown: {fileID: 1434567855, guid: 456ae456534735a47ba88ed56824b0df, type: 3}
   attackRightDown: {fileID: 1722867385, guid: 456ae456534735a47ba88ed56824b0df, type: 3}
+--- !u!114 &3951039478117502562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367308180187951258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ec0000000000000000000000000002, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
