@@ -38,6 +38,7 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
     private Transform target;
     private BossState state;
     private Vector2 lockedLaserDirection = Vector2.down;
+    private Vector2 lockedLaserOriginDirection = Vector2.up;
     private float stateElapsed;
     private bool laserDamageApplied;
     private int completedRolls;
@@ -86,7 +87,6 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
                 UpdateRollingMovement();
                 break;
             case BossState.Aiming:
-                TrackPlayer();
                 if (stateElapsed >= aimingDuration) EnterState(BossState.Telegraph);
                 break;
             case BossState.Telegraph:
@@ -128,7 +128,8 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
         }
         else if (nextState == BossState.Telegraph)
         {
-            TrackPlayer();
+            lockedLaserOriginDirection = visual3D.TopFaceDirection;
+            lockedLaserDirection = lockedLaserOriginDirection;
         }
     }
 
@@ -206,20 +207,6 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
         target = player == null ? null : player.transform;
     }
 
-    private void TrackPlayer()
-    {
-        if (target == null)
-        {
-            return;
-        }
-
-        Vector2 toTarget = target.position - transform.position;
-        if (toTarget.sqrMagnitude > 0.001f)
-        {
-            lockedLaserDirection = ResolveCardinalDirection(toTarget);
-        }
-    }
-
     private static Vector2 ResolveCardinalDirection(Vector2 direction)
     {
         if (Mathf.Abs(direction.x) >= Mathf.Abs(direction.y))
@@ -233,7 +220,7 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
     private void DrawLaser(Color color, float width)
     {
         Vector3 origin = transform.position +
-            (Vector3)(lockedLaserDirection * laserOriginOffset);
+            (Vector3)(lockedLaserOriginDirection * laserOriginOffset);
         laserLine.enabled = true;
         laserLine.startColor = color;
         laserLine.endColor = color;
@@ -252,7 +239,7 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
         }
 
         Vector2 origin = (Vector2)transform.position +
-            lockedLaserDirection * laserOriginOffset;
+            lockedLaserOriginDirection * laserOriginOffset;
         Vector2 toPlayer = (Vector2)target.position - origin;
         float distanceAlongBeam = Vector2.Dot(toPlayer, lockedLaserDirection);
         if (distanceAlongBeam < 0f || distanceAlongBeam > laserRange)

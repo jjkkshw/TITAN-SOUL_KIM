@@ -52,6 +52,19 @@ public sealed class EyeCubeVisual3D : MonoBehaviour
         set => cubeTransform.localRotation = value;
     }
 
+    public Vector2 TopFaceDirection
+    {
+        get
+        {
+            Vector3 worldNormal = viewTiltTransform.TransformDirection(
+                cubeTransform.localRotation * Vector3.up);
+            Vector2 direction = new(worldNormal.x, worldNormal.y);
+            return direction.sqrMagnitude > 0.001f
+                ? direction.normalized
+                : Vector2.up;
+        }
+    }
+
     public void SetDefeated(bool defeated)
     {
         if (materials == null)
