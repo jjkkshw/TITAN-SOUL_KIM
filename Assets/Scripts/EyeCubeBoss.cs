@@ -14,6 +14,13 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
         Dead
     }
 
+    private enum LaserMode
+    {
+        Side,
+        Sky,
+        Ground
+    }
+
     [Header("Pattern")]
     [Min(0f)] [SerializeField] private float closedDuration = 1.5f;
     [Min(1)] [SerializeField] private int rollsPerAttack = 4;
@@ -24,13 +31,25 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
     [Min(0f)] [SerializeField] private float telegraphDuration = 0.75f;
     [Min(0.01f)] [SerializeField] private float laserDuration = 0.35f;
     [Min(0.1f)] [SerializeField] private float laserRange = 20f;
+    [Min(0.1f)] [SerializeField] private float skyLaserVisualRange = 4f;
     [Min(0.01f)] [SerializeField] private float laserWidth = 0.16f;
     [Min(0f)] [SerializeField] private float laserOriginOffset = 0.65f;
     [Min(0.01f)] [SerializeField] private float playerHitRadius = 0.35f;
 
+    [Header("Ground Laser")]
+    [Min(0.01f)] [SerializeField] private float groundLaserRadius = 0.75f;
+    [Min(0f)] [SerializeField] private float groundHoverHeight = 5f;
+    [Min(0.01f)] [SerializeField] private float hoverSpeed = 5.5f;
+    [Min(0.01f)] [SerializeField] private float hoverAcceleration = 14f;
+    [Min(0f)] [SerializeField] private float hoverBobAmount = 0.08f;
+    [Min(0f)] [SerializeField] private float hoverBobSpeed = 18f;
+
     [Header("Laser Colors")]
     [SerializeField] private Color telegraphColor = new(1f, 0.15f, 0.1f, 0.35f);
     [SerializeField] private Color laserColor = new(1f, 0.05f, 0.02f, 1f);
+
+    [Header("Sky Laser Visual")]
+    [Range(0f, 1f)] [SerializeField] private float skyLaserAlphaMultiplier = 0.35f;
 
     private EyeCubeVisual3D visual3D;
     private BoxCollider2D hitbox;
@@ -39,6 +58,12 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
     private BossState state;
     private Vector2 lockedLaserDirection = Vector2.down;
     private Vector2 lockedLaserOriginDirection = Vector2.up;
+    private LaserMode laserMode;
+    private float hoverBaseHeight;
+    private float hoverVelocity;
+    private bool isAirLanding;
+    private Quaternion airLandingStartRotation;
+    private Quaternion airLandingEndRotation;
     private float stateElapsed;
     private bool laserDamageApplied;
     private int completedRolls;
@@ -78,6 +103,7 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
         }
 
         stateElapsed += Time.deltaTime;
+        UpdateVisualHeight();
         switch (state)
         {
             case BossState.Closed:
@@ -116,21 +142,107 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
 
     private void EnterState(BossState nextState)
     {
+        bool beginAirLanding = nextState == BossState.Closed &&
+            state == BossState.Firing && laserMode == LaserMode.Ground;
         state = nextState;
         stateElapsed = 0f;
         laserDamageApplied = false;
         laserLine.enabled = false;
+
+        if (nextState == BossState.Dead)
+        {
+            hoverBaseHeight = 0f;
+            hoverVelocity = 0f;
+            visual3D.VisualHeight = 0f;
+        }
+
+        if (beginAirLanding)
+        {
+            BeginRandomAirLanding();
+        }
 
         if (nextState == BossState.Moving)
         {
             completedRolls = 0;
             isRolling = false;
         }
-        else if (nextState == BossState.Telegraph)
+        else if (nextState == BossState.Aiming)
         {
-            lockedLaserOriginDirection = visual3D.TopFaceDirection;
-            lockedLaserDirection = lockedLaserOriginDirection;
+            LockLaserMode();
         }
+    }
+
+    private void LockLaserMode()
+    {
+        Vector3 normal = visual3D.TopFaceNormal;
+        lockedLaserOriginDirection = ResolveCardinalDirection(
+            visual3D.TopFaceDirection);
+
+        if (Mathf.Abs(normal.y) > 0.5f)
+        {
+            laserMode = normal.y > 0f ? LaserMode.Sky : LaserMode.Ground;
+            return;
+        }
+
+        laserMode = LaserMode.Side;
+        lockedLaserDirection = lockedLaserOriginDirection;
+    }
+
+    private void UpdateVisualHeight()
+    {
+        bool groundAttack = laserMode == LaserMode.Ground &&
+            (state == BossState.Telegraph ||
+             state == BossState.Firing);
+        float targetHeight = groundAttack ? groundHoverHeight : 0f;
+        float targetVelocity = targetHeight > hoverBaseHeight
+            ? hoverSpeed
+            : -hoverSpeed;
+        hoverVelocity = Mathf.MoveTowards(
+            hoverVelocity, targetVelocity, hoverAcceleration * Time.deltaTime);
+        hoverBaseHeight += hoverVelocity * Time.deltaTime;
+
+        if ((hoverVelocity > 0f && hoverBaseHeight >= targetHeight) ||
+            (hoverVelocity < 0f && hoverBaseHeight <= targetHeight))
+        {
+            hoverBaseHeight = targetHeight;
+            hoverVelocity = 0f;
+        }
+
+        float bob = groundAttack
+            ? Mathf.Sin(Time.time * hoverBobSpeed) * hoverBobAmount
+            : 0f;
+        visual3D.VisualHeight = Mathf.Max(0f, hoverBaseHeight + bob);
+
+        if (isAirLanding)
+        {
+            float landingProgress = groundHoverHeight > 0f
+                ? 1f - Mathf.Clamp01(hoverBaseHeight / groundHoverHeight)
+                : 1f;
+            visual3D.CubeRotation = Quaternion.Slerp(
+                airLandingStartRotation, airLandingEndRotation, landingProgress);
+
+            if (landingProgress >= 1f)
+            {
+                isAirLanding = false;
+            }
+        }
+    }
+
+    private void BeginRandomAirLanding()
+    {
+        Vector2[] directions =
+        {
+            Vector2.up, Vector2.down, Vector2.left, Vector2.right
+        };
+        Vector2 direction = directions[Random.Range(0, directions.Length)];
+        airLandingStartRotation = visual3D.CubeRotation;
+
+        Vector3 rotationAxis = Mathf.Abs(direction.x) > 0f
+            ? new Vector3(0f, 0f, -direction.x)
+            : new Vector3(direction.y, 0f, 0f);
+        airLandingEndRotation = Quaternion.AngleAxis(90f, rotationAxis) *
+            airLandingStartRotation;
+        isAirLanding = true;
     }
 
     private void UpdateRollingMovement()
@@ -219,6 +331,45 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
 
     private void DrawLaser(Color color, float width)
     {
+        if (laserMode == LaserMode.Sky)
+        {
+            Vector3 skyOrigin = transform.position +
+                (Vector3)(lockedLaserOriginDirection * laserOriginOffset);
+            Color skyColor = new(
+                color.r, color.g, color.b,
+                color.a * skyLaserAlphaMultiplier);
+            laserLine.enabled = true;
+            laserLine.loop = false;
+            laserLine.positionCount = 2;
+            laserLine.startColor = skyColor;
+            laserLine.endColor = skyColor;
+            laserLine.startWidth = width;
+            laserLine.endWidth = width;
+            laserLine.SetPosition(0, skyOrigin);
+            laserLine.SetPosition(1, skyOrigin +
+                (Vector3)(lockedLaserOriginDirection * skyLaserVisualRange));
+            return;
+        }
+
+        laserLine.loop = false;
+        laserLine.positionCount = 2;
+
+        if (laserMode == LaserMode.Ground)
+        {
+            Vector3 groundPoint = transform.position;
+            Vector3 faceCenter = groundPoint +
+                Vector3.up * visual3D.VisualHeight +
+                (Vector3)(lockedLaserOriginDirection * laserOriginOffset);
+            laserLine.enabled = true;
+            laserLine.startColor = color;
+            laserLine.endColor = color;
+            laserLine.startWidth = width;
+            laserLine.endWidth = width;
+            laserLine.SetPosition(0, faceCenter);
+            laserLine.SetPosition(1, groundPoint);
+            return;
+        }
+
         Vector3 origin = transform.position +
             (Vector3)(lockedLaserOriginDirection * laserOriginOffset);
         laserLine.enabled = true;
@@ -235,6 +386,22 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
     {
         if (laserDamageApplied || target == null)
         {
+            return;
+        }
+
+        if (laserMode == LaserMode.Sky)
+        {
+            return;
+        }
+
+        if (laserMode == LaserMode.Ground)
+        {
+            float hitRadius = groundLaserRadius + playerHitRadius;
+            if (((Vector2)target.position - (Vector2)transform.position)
+                .sqrMagnitude <= hitRadius * hitRadius)
+            {
+                ApplyLaserDamage();
+            }
             return;
         }
 
@@ -255,6 +422,11 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
             return;
         }
 
+        ApplyLaserDamage();
+    }
+
+    private void ApplyLaserDamage()
+    {
         laserDamageApplied = true;
         PlayerHealth health = target.GetComponent<PlayerHealth>();
         if (health != null)

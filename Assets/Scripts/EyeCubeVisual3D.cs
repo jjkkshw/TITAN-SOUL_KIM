@@ -65,6 +65,14 @@ public sealed class EyeCubeVisual3D : MonoBehaviour
         }
     }
 
+    public Vector3 TopFaceNormal => cubeTransform.localRotation * Vector3.up;
+
+    public float VisualHeight
+    {
+        get => viewTiltTransform.localPosition.y;
+        set => viewTiltTransform.localPosition = new Vector3(0f, value, 0f);
+    }
+
     public void SetDefeated(bool defeated)
     {
         if (materials == null)
