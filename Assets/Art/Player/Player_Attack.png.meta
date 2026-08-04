@@ -332,10 +332,10 @@ TextureImporter:
       name: Player_Attack_D
       rect:
         serializedVersion: 2
-        x: 80
-        y: 90
-        width: 20
-        height: 53
+        x: 83
+        y: 91
+        width: 26
+        height: 52
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -373,7 +373,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Attack_12
+      name: Player_Attack_CallArrow_UR
       rect:
         serializedVersion: 2
         x: 215
@@ -395,7 +395,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Attack_13
+      name: Player_Attack_CallArrow_UL
       rect:
         serializedVersion: 2
         x: 251
@@ -544,8 +544,6 @@ TextureImporter:
     nameFileIdTable:
       Arrow: 959295913
       Player_Attack_10: 76787755
-      Player_Attack_12: 601520902
-      Player_Attack_13: 2073871547
       Player_Attack_14: -232022204
       Player_Attack_15: 2002517274
       Player_Attack_17: -1998015483
@@ -568,6 +566,8 @@ TextureImporter:
       Player_Attack_33: -1448223914
       Player_Attack_4: -419772411
       Player_Attack_8: -984138647
+      Player_Attack_CallArrow_UL: 2073871547
+      Player_Attack_CallArrow_UR: 601520902
       Player_Attack_D: 1434567855
       Player_Attack_L: 347702003
       Player_Attack_LD: -1978822590

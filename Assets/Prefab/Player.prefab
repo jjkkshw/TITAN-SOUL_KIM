@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c213d36a92834724598897466b0d7f12, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   speed: 5
 --- !u!95 &2696408671375875129
@@ -164,6 +164,14 @@ MonoBehaviour:
   attackLeftDown: {fileID: -1978822590, guid: 456ae456534735a47ba88ed56824b0df, type: 3}
   attackDown: {fileID: 1434567855, guid: 456ae456534735a47ba88ed56824b0df, type: 3}
   attackRightDown: {fileID: 1722867385, guid: 456ae456534735a47ba88ed56824b0df, type: 3}
+  recallLeft: {fileID: 0}
+  recallLeftUp: {fileID: 2073871547, guid: 456ae456534735a47ba88ed56824b0df, type: 3}
+  recallUp: {fileID: 0}
+  recallRightUp: {fileID: 601520902, guid: 456ae456534735a47ba88ed56824b0df, type: 3}
+  recallRight: {fileID: 0}
+  recallRightDown: {fileID: 0}
+  recallDown: {fileID: 0}
+  recallLeftDown: {fileID: 0}
 --- !u!114 &3951039478117502562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,5 +182,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1ec0000000000000000000000000002, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth

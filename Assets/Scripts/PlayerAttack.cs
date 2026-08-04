@@ -52,6 +52,16 @@ public sealed class PlayerAttack : MonoBehaviour
     [SerializeField] private Sprite attackDown;
     [SerializeField] private Sprite attackRightDown;
 
+    [Header("Recall Poses")]
+    [SerializeField] private Sprite recallLeft;
+    [SerializeField] private Sprite recallLeftUp;
+    [SerializeField] private Sprite recallUp;
+    [SerializeField] private Sprite recallRightUp;
+    [SerializeField] private Sprite recallRight;
+    [SerializeField] private Sprite recallRightDown;
+    [SerializeField] private Sprite recallDown;
+    [SerializeField] private Sprite recallLeftDown;
+
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private Vector2 aimDirection = Vector2.left;
@@ -59,6 +69,7 @@ public sealed class PlayerAttack : MonoBehaviour
     private float cooldownRemaining;
     private float singleDirectionElapsed;
     private bool isCharging;
+    private bool isShowingRecallPose;
     private bool hasArrow = true;
     private bool waitForChargeButtonRelease;
     private PlayerProjectile activeProjectile;
@@ -66,6 +77,8 @@ public sealed class PlayerAttack : MonoBehaviour
     public float ChargeProgress =>
         isCharging ? Mathf.Clamp01(chargeElapsed / chargeDuration) : 0f;
     public bool IsCharging => isCharging;
+    public bool IsRecalling =>
+        !hasArrow && activeProjectile != null && IsChargeButtonHeld();
     public bool HasArrow => hasArrow;
 
     private void Awake()
@@ -88,6 +101,17 @@ public sealed class PlayerAttack : MonoBehaviour
         if (!hasArrow)
         {
             activeProjectile?.SetReturning(isChargeButtonHeld);
+
+            if (isChargeButtonHeld && activeProjectile != null)
+            {
+                ShowRecallPose(
+                    activeProjectile.transform.position - transform.position);
+            }
+            else
+            {
+                EndRecallPose();
+            }
+
             return;
         }
 
@@ -140,6 +164,8 @@ public sealed class PlayerAttack : MonoBehaviour
         {
             EndCharge();
         }
+
+        EndRecallPose();
     }
 
     private void BeginCharge()
@@ -209,6 +235,7 @@ public sealed class PlayerAttack : MonoBehaviour
 
         hasArrow = true;
         activeProjectile = null;
+        EndRecallPose();
         waitForChargeButtonRelease = true;
         cooldownRemaining = 0f;
         Destroy(projectile.gameObject);
@@ -227,6 +254,50 @@ public sealed class PlayerAttack : MonoBehaviour
         if (x > 0) return attackRight;
         if (y > 0) return attackUp;
         return attackDown;
+    }
+
+    private void ShowRecallPose(Vector2 arrowDirection)
+    {
+        if (arrowDirection.sqrMagnitude <= Mathf.Epsilon)
+        {
+            return;
+        }
+
+        isShowingRecallPose = true;
+        animator.enabled = false;
+
+        Sprite recallPose = GetRecallPose(arrowDirection.normalized);
+        if (recallPose != null)
+        {
+            spriteRenderer.sprite = recallPose;
+        }
+    }
+
+    private void EndRecallPose()
+    {
+        if (!isShowingRecallPose)
+        {
+            return;
+        }
+
+        isShowingRecallPose = false;
+        animator.enabled = true;
+        animator.Update(0f);
+    }
+
+    private Sprite GetRecallPose(Vector2 direction)
+    {
+        int x = Mathf.RoundToInt(direction.x);
+        int y = Mathf.RoundToInt(direction.y);
+
+        if (x < 0 && y > 0) return recallLeftUp;
+        if (x > 0 && y > 0) return recallRightUp;
+        if (x < 0 && y < 0) return recallLeftDown;
+        if (x > 0 && y < 0) return recallRightDown;
+        if (x < 0) return recallLeft;
+        if (x > 0) return recallRight;
+        if (y > 0) return recallUp;
+        return recallDown;
     }
 
     private Vector2 ResolveAimDirection(Vector2 input)

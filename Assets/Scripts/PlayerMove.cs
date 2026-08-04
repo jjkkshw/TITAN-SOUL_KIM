@@ -31,8 +31,9 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        bool isAiming = playerAttack != null && playerAttack.IsCharging;
-        Vector2 moveInput = isAiming ? Vector2.zero : ReadMoveInput();
+        bool isMovementLocked = playerAttack != null &&
+            (playerAttack.IsCharging || playerAttack.IsRecalling);
+        Vector2 moveInput = isMovementLocked ? Vector2.zero : ReadMoveInput();
         transform.position +=
             (Vector3)(moveInput * speed * Time.deltaTime);
 
