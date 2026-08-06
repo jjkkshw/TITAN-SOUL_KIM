@@ -77,6 +77,7 @@ public sealed class EyeCubeBoss : MonoBehaviour, IProjectileDamageReceiver
         state == BossState.Aiming ||
         state == BossState.Telegraph ||
         state == BossState.Firing;
+    public bool IsDead => state == BossState.Dead;
 
     private void Awake()
     {
