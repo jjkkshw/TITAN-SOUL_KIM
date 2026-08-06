@@ -16,6 +16,8 @@ public class PlayerMove : MonoBehaviour
 
     [Min(0f)]
     [SerializeField] private float speed = DefaultSpeed;
+    [Min(1f)]
+    [SerializeField] private float runSpeedMultiplier = 1.35f;
 
     private Animator animator;
     private PlayerAttack playerAttack;
@@ -34,8 +36,11 @@ public class PlayerMove : MonoBehaviour
         bool isMovementLocked = playerAttack != null &&
             (playerAttack.IsCharging || playerAttack.IsRecalling);
         Vector2 moveInput = isMovementLocked ? Vector2.zero : ReadMoveInput();
+        float currentSpeed = IsRunButtonHeld()
+            ? speed * runSpeedMultiplier
+            : speed;
         transform.position +=
-            (Vector3)(moveInput * speed * Time.deltaTime);
+            (Vector3)(moveInput * currentSpeed * Time.deltaTime);
 
         bool isMoving = moveInput.sqrMagnitude > 0f;
         animator.SetFloat(MoveXHash, moveInput.x);
@@ -64,6 +69,12 @@ public class PlayerMove : MonoBehaviour
             (keyboard.downArrowKey.isPressed ? 1f : 0f));
 
         return input.normalized;
+    }
+
+    private static bool IsRunButtonHeld()
+    {
+        Keyboard keyboard = Keyboard.current;
+        return keyboard != null && keyboard.xKey.isPressed;
     }
 
     private void SetIdleDirection(Vector2 direction)
