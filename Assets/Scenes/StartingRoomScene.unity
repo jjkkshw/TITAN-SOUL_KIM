@@ -256,67 +256,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445668057}
   m_CullTransparentMesh: 1
---- !u!1001 &446210740
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7100000000000000001, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_Name
-      value: EyeCube
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000002, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.17081366
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000002, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.879946
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000002, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000002, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000002, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000002, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000002, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000002, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000002, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000002, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7100000000000000006, guid: e1ec0000000000000000000000000003, type: 3}
-      propertyPath: topFace
-      value: 
-      objectReference: {fileID: -5597628593208086449, guid: 1f0d62830fb6f2e48bb660d07a518437, type: 3}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e1ec0000000000000000000000000003, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,6 +268,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -454,6 +394,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f1601c3d7a4d5db8e6a0baf39e2f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
+  target: {fileID: 0}
+  smoothTime: 0.3
+  aimOffsetDistance: 2
+  framingPadding: 1.5
+  zoomSmoothTime: 0.3
+  maximumOrthographicSize: 10
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,5 +990,4 @@ SceneRoots:
   - {fileID: 1627385970}
   - {fileID: 1889393714}
   - {fileID: 1963657240}
-  - {fileID: 446210740}
   - {fileID: 1429994439}

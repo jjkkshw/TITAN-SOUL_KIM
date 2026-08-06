@@ -9,27 +9,18 @@ public sealed class EyeCubeVisual3D : MonoBehaviour
     [SerializeField] private Mesh sourceMesh;
 
     [Header("Face Sprites")]
-    [Tooltip("+X face")]
-    [SerializeField] private Sprite rightFace;
-    [Tooltip("-X face")]
-    [SerializeField] private Sprite leftFace;
     [Tooltip("+Y face")]
     [SerializeField] private Sprite topFace;
     [Tooltip("-Y face")]
     [SerializeField] private Sprite bottomFace;
-    [Tooltip("Face initially visible to the camera")]
-    [SerializeField] private Sprite frontFace;
-    [Tooltip("Face opposite the initial camera-facing side")]
-    [SerializeField] private Sprite backFace;
+    [Tooltip("Same sprite used on the front, back, left, and right faces")]
+    [SerializeField] private Sprite sideFace;
 
     private static readonly Color[] FaceColors =
     {
-        new(0.95f, 0.18f, 0.18f), // right
-        new(0.18f, 0.75f, 0.30f), // left
+        new(0.75f, 0.25f, 0.95f), // side
         new(0.20f, 0.45f, 1.00f), // top
-        new(1.00f, 0.78f, 0.12f), // bottom
-        new(0.75f, 0.25f, 0.95f), // front
-        new(0.10f, 0.85f, 0.90f)  // back
+        new(1.00f, 0.78f, 0.12f)  // bottom
     };
 
     private Transform cubeTransform;
@@ -38,7 +29,7 @@ public sealed class EyeCubeVisual3D : MonoBehaviour
 
     private Sprite[] FaceSprites => new[]
     {
-        rightFace, leftFace, topFace, bottomFace, frontFace, backFace
+        sideFace, topFace, bottomFace
     };
 
     private void Awake()
@@ -155,12 +146,17 @@ public sealed class EyeCubeVisual3D : MonoBehaviour
             vertices = vertices,
             uv = uvs
         };
-        mesh.subMeshCount = 6;
+        mesh.subMeshCount = 3;
+        List<int>[] triangles = { new(), new(), new() };
         for (int face = 0; face < 6; face++)
         {
             int start = face * 4;
-            mesh.SetTriangles(new[] { start, start + 2, start + 1, start, start + 3, start + 2 }, face);
+            int materialIndex = ResolveMaterialIndex(face);
+            triangles[materialIndex].AddRange(
+                new[] { start, start + 2, start + 1, start, start + 3, start + 2 });
         }
+        for (int i = 0; i < triangles.Length; i++)
+            mesh.SetTriangles(triangles[i], i);
 
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
@@ -177,7 +173,7 @@ public sealed class EyeCubeVisual3D : MonoBehaviour
 
         List<Vector3> vertices = new();
         List<Vector2> uvs = new();
-        List<int>[] faceTriangles = new List<int>[6];
+        List<int>[] faceTriangles = new List<int>[3];
         for (int i = 0; i < faceTriangles.Length; i++)
             faceTriangles[i] = new List<int>();
 
@@ -188,10 +184,11 @@ public sealed class EyeCubeVisual3D : MonoBehaviour
             Vector3 c = sourceVertices[sourceTriangles[triangle + 2]];
             Vector3 normal = Vector3.Cross(b - a, c - a).normalized;
             int face = ResolveFaceIndex(normal);
+            int materialIndex = ResolveMaterialIndex(face);
 
-            AddFaceVertex(a, face, bounds, scale, vertices, uvs, faceTriangles[face]);
-            AddFaceVertex(b, face, bounds, scale, vertices, uvs, faceTriangles[face]);
-            AddFaceVertex(c, face, bounds, scale, vertices, uvs, faceTriangles[face]);
+            AddFaceVertex(a, face, bounds, scale, vertices, uvs, faceTriangles[materialIndex]);
+            AddFaceVertex(b, face, bounds, scale, vertices, uvs, faceTriangles[materialIndex]);
+            AddFaceVertex(c, face, bounds, scale, vertices, uvs, faceTriangles[materialIndex]);
         }
 
         Mesh mesh = new()
@@ -199,10 +196,10 @@ public sealed class EyeCubeVisual3D : MonoBehaviour
             name = $"{source.name} - EyeCube Face Ready",
             vertices = vertices.ToArray(),
             uv = uvs.ToArray(),
-            subMeshCount = 6
+            subMeshCount = 3
         };
-        for (int face = 0; face < 6; face++)
-            mesh.SetTriangles(faceTriangles[face], face);
+        for (int materialIndex = 0; materialIndex < faceTriangles.Length; materialIndex++)
+            mesh.SetTriangles(faceTriangles[materialIndex], materialIndex);
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
         return mesh;
@@ -216,6 +213,16 @@ public sealed class EyeCubeVisual3D : MonoBehaviour
         if (absolute.y >= absolute.z)
             return normal.y >= 0f ? 2 : 3;
         return normal.z <= 0f ? 4 : 5;
+    }
+
+    private static int ResolveMaterialIndex(int face)
+    {
+        return face switch
+        {
+            2 => 1, // top
+            3 => 2, // bottom
+            _ => 0  // four side faces
+        };
     }
 
     private static void AddFaceVertex(

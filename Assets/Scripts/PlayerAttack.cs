@@ -77,6 +77,9 @@ public sealed class PlayerAttack : MonoBehaviour
     public float ChargeProgress =>
         isCharging ? Mathf.Clamp01(chargeElapsed / chargeDuration) : 0f;
     public bool IsCharging => isCharging;
+    public Vector2 AimDirection => aimDirection;
+    public Transform ActiveProjectileTransform =>
+        activeProjectile != null ? activeProjectile.transform : null;
     public bool IsRecalling =>
         !hasArrow && activeProjectile != null && IsChargeButtonHeld();
     public bool HasArrow => hasArrow;
